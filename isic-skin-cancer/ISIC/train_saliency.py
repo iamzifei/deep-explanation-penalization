@@ -27,8 +27,7 @@ data_path =data["data_folder"]
 seg_path  = oj(data_path, "segmentation")
 not_cancer_path = oj(data_path, "processed/0_no_cancer")
 cancer_path = oj(data_path, "processed/1_cancer")
- 
- 
+
 mean = np.asarray([0.485, 0.456, 0.406])
 std = np.asarray([0.229, 0.224, 0.225])
 
@@ -62,7 +61,6 @@ model.classifier[-1] = nn.Linear(4096, 2)
 model = model.to(device)
 params_to_update = model.classifier.parameters()
 
-
 def load_folder(path):
     list_files= os.listdir(path)
     num_files = len(list_files)
@@ -95,16 +93,13 @@ not_cancer_set = load_folder(not_cancer_path)
 not_cancer_set -= mean[None, None, :]
 not_cancer_set /= std[None, None, :]
 seg_set = load_seg(seg_path, not_cancer_path)
-
 cancer_targets = np.ones((cancer_set.shape[0])).astype(np.int64)
 not_cancer_targets = np.zeros((not_cancer_set.shape[0])).astype(np.int64)
-not_cancer_dataset = TensorDataset(torch.from_numpy(not_cancer_set.swapaxes(1,3).swapaxes(2,3)).float(), torch.from_numpy(not_cancer_targets),torch.from_numpy(seg_set))
+not_cancer_dataset = TensorDataset(torch.from_numpy(not_cancer_set.swapaxes(1,3).swapaxes(2,3)), torch.from_numpy(not_cancer_targets),torch.from_numpy(seg_set))
 del not_cancer_set
 del seg_set
-
-cancer_dataset = TensorDataset(torch.from_numpy(cancer_set.swapaxes(1,3).swapaxes(2,2)).float(), torch.from_numpy(cancer_targets),torch.from_numpy(np.zeros((len(cancer_set), 299, 299), dtype = np.bool)))
+cancer_dataset = TensorDataset(torch.from_numpy(cancer_set.swapaxes(1,3).swapaxes(2,2)), torch.from_numpy(cancer_targets),torch.from_numpy(np.zeros((len(cancer_set), 299, 299), dtype = np.bool)))
 del cancer_set
-
 
 gc.collect()
 complete_dataset = ConcatDataset((not_cancer_dataset, cancer_dataset ))
@@ -125,7 +120,6 @@ dataloaders = {x: torch.utils.data.DataLoader(datasets[x], batch_size=args.batch
        
 
 cancer_ratio =len(cancer_dataset)/len(complete_dataset)
-
 
 not_cancer_ratio = 1- cancer_ratio
 cancer_weight = 1/cancer_ratio
@@ -156,8 +150,6 @@ def train_model(model,dataloaders, criterion, optimizer, num_epochs=25):
     patience = 3
     cur_patience = 0
 
-    
-
 
     for epoch in range(num_epochs):
         print('Epoch {}/{}'.format(epoch, num_epochs - 1))
@@ -177,7 +169,7 @@ def train_model(model,dataloaders, criterion, optimizer, num_epochs=25):
 
             # Iterate over data.
             for i, (inputs, labels, seg) in tqdm(enumerate(dataloaders[phase])):
-    
+                inputs = inputs.float() 
                 inputs = inputs.to(device)
                 labels = labels.to(device)
                 
@@ -270,12 +262,11 @@ def train_model(model,dataloaders, criterion, optimizer, num_epochs=25):
     model.load_state_dict(best_model_wts)
     return model,hist_dict 
     
-    
-
 
 model, hist_dict = train_model(model, dataloaders, criterion, optimizer_ft, num_epochs=num_epochs)
 pid = ''.join(["%s" % randint(0, 9) for num in range(0, 20)])
-torch.save(model.classifier.state_dict(),oj(model_path, pid + ".pt"))
+
+torch.save(model.classifier.state_dict(), oj(model_path, pid + ".pt"))
 
 hist_dict['pid'] = pid
 hist_dict['regularizer_rate'] = regularizer_rate

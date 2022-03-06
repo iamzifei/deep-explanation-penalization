@@ -1,1 +1,8 @@
-{"user": "INSERT USER NAME HERE", "pw": "INSERT PW HERE", "data_folder": "../../data/ISIC", "num_imgs":25000, "model_folder": "../../models/"}
+{
+  "user": "iamzifei@gmail.com",
+  "pw": "4WskJ8JZkdqRP6l8",
+  "data_folder": "/Users/james/Dev/ai/deep-explanation-penalization/data-new",
+  "num_imgs": 25000,
+  "model_folder": "/Users/james/Dev/ai/deep-explanation-penalization/models-new",
+  "start_index": 25000
+}

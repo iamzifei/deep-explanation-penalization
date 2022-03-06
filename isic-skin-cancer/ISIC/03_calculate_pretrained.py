@@ -12,7 +12,7 @@ import os
 from torch.utils.data import Subset
 import csv
 import numpy as np
-sys.path.append('../')
+sys.path.append('../../src')
 from skimage.morphology import dilation
 import cd
 from shutil import copyfile
@@ -29,8 +29,8 @@ with open('config.json') as json_file:
 
 data_path = data["data_folder"]
 processed_path = os.path.join(data_path, "processed")
-benign_path = os.path.join(processed_path, "no_cancer")
-malignant_path = os.path.join(processed_path, "cancer")
+benign_path = os.path.join(processed_path, "0_no_cancer")
+malignant_path = os.path.join(processed_path, "1_cancer")
 feature_path = os.path.join(data_path, "calculated_features")
 segmentation_path = os.path.join(data_path, "segmentation")
 os.makedirs(feature_path,exist_ok = True)

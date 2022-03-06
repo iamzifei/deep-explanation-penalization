@@ -427,7 +427,7 @@ def cd_penalty_for_one_decoy(batch, model1, start, stop,class_rules):
     mask_decoy_in_relevant = is_in_relevant_decoy(batch, start, stop,class_rules).cuda()
     if mask_decoy_in_relevant.byte().any():
    
-        masked_relevant = model1_softmax[:,1].masked_select(mask_decoy_in_relevant.byte())
+        masked_relevant = model1_softmax[:,1].masked_select(mask_decoy_in_relevant.bool())
         output = -(torch.log(masked_relevant)).mean() 
         return output
     else: 
