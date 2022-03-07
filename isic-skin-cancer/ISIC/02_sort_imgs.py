@@ -9,9 +9,7 @@ from shutil import copyfile
 from os.path import join as oj
 from isic_api import ISICApi
 import os
-from os.path import join as oj
 import json
-import csv
 with open('config.json') as json_file:
     data = json.load(json_file)
 

@@ -5,9 +5,9 @@ from os import listdir, mkdir
 from os.path import isfile, join, isdir
 
 
-image_path = "/Users/james/Dev/ai/deep-explanation-penalization/data/ISIC/test"
+image_path = "/Users/james/Dev/ai/master/data/ISIC/dark_subset/9"
 
-ratio = 0.2
+ratio = 0.3
 
 
 # get number of images in the folder image_path with ratio
