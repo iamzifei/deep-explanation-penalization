@@ -1,8 +1,8 @@
 {
   "user": "iamzifei@gmail.com",
   "pw": "4WskJ8JZkdqRP6l8",
-  "data_folder": "/Users/james/Dev/ai/master/data-new",
+  "data_folder": "/Users/s720181/Dev/master/data/ISIC",
   "num_imgs": 25000,
-  "model_folder": "/Users/james/Dev/ai/master/models-new",
-  "start_index": 25000
+  "model_folder": "/Users/s720181/Dev/master/models",
+  "start_index": 0
 }

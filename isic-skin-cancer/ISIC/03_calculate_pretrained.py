@@ -6,16 +6,13 @@ import numpy as np
 import torch.utils.data as utils
 from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
-import pickle as pkl
 from os.path import join as oj
 import os
 from torch.utils.data import Subset
-import csv
 import numpy as np
 sys.path.append('../../src')
 from skimage.morphology import dilation
 import cd
-from shutil import copyfile
 from os.path import join as oj
 from PIL import Image
 from tqdm import tqdm
@@ -48,7 +45,7 @@ list_of_img_names = os.listdir(benign_path)
 
 model = models.vgg16(pretrained=True).to(device).eval()
 
-img_features = np.empty((len(list_of_img_names), 25088))
+img_features = np.empty((len(list_of_img_names), 25088)) # 512 * 7 * 7
 cd_features = -np.ones((len(list_of_img_names), 2, 25088)) # rel, irrel
 avg_layer = torch.nn.AdaptiveAvgPool2d((7,7))
 from skimage.morphology import square

@@ -1,6 +1,3 @@
-from torch.utils.data import TensorDataset, ConcatDataset
-import numpy as np
-from os.path import join as oj
 import torch.utils.data as utils
 from torch.utils.data import DataLoader
 from sklearn.metrics import auc, average_precision_score, roc_curve, roc_auc_score, precision_recall_curve, f1_score
@@ -62,7 +59,7 @@ def get_output(model, dataset):
     model = model.eval()
     y = []
     y_hat = []
-    softmax = torch.nn.Softmax()
+    torch.nn.Softmax()
     with torch.no_grad():
         for inputs, labels, cd in data_loader:
             y_hat.append((labels).cpu().numpy())

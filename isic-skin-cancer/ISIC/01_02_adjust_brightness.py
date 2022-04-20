@@ -5,7 +5,7 @@ from os import listdir, mkdir
 from os.path import isfile, join, isdir
 
 
-image_path = "/Users/james/Dev/ai/master/data/ISIC/dark_subset/9"
+image_path = "/Users/s720181/Dev/master/data/ISIC/dark_subset/2"
 
 ratio = 0.3
 
